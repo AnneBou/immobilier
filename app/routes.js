@@ -7,5 +7,9 @@ module.exports = (app) => {
         let Register = require('../src/controller/Register.js');
         (new Register()).print(req, res);
    });
+    app.post('/inscription', (req, res) => {
+        let Register = require('../src/controller/Register.js');
+        (new Register()).process(req, res);
+    });
    
 };
