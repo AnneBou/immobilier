@@ -41,6 +41,10 @@ app.use(sassMiddleware({
     indentedSyntax: false, // true Compiles files with the .sass extension
     outputStyle: 'compressed'
 }));
+app.use((req,res,next) => {
+    res.locals.session = req.session;
+    next();
+});
 
 //--------------------------------------------------------------------
 //     Ecoute du serveur HTTP

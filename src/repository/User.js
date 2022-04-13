@@ -28,4 +28,16 @@ module.exports = class User { // Accès à la collection User
         return await this.db.findOne({email}) ? true : false;
     }
 
+    getUserByEmail(email) {
+        return new Promise((resolve, reject) => {
+            this.db.findOne({ email }, (err, user) => {
+                // si pas d'erreur, email trouvé
+                if (!err && user !== null) {
+                   resolve(user);
+                }  
+                reject(false);
+            })
+        })
+    }    
+
 }
