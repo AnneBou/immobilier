@@ -9,6 +9,11 @@ module.exports = class Register {
         let entity = {
             email : request.body.email || '',
             password : request.body.password || '', // devra être hashé
+                /* let bcrypt = require('bcryptjs'),
+                entity.password = bcrypt.hashSync(
+                entity.password, 
+                bcrypt.genSaltSync(10)
+            ), */
             civility : request.body.civility || '',
             firstname: request.body.firstname || '',
             lastname: request.body.lastname || '',
@@ -41,12 +46,5 @@ module.exports = class Register {
             }
         });
     }
-
-    //     let bcrypt = require('bcryptjs');
-    //     entity.password = bcrypt.hashSync(
-    //          entity.password, 
-    //          bcrypt.genSaltSync(10)
-    //     );
-
 
 };
