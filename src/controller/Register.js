@@ -9,16 +9,13 @@ module.exports = class Register {
         let entity = {
             email : request.body.email || '',
             password : request.body.password || '', // devra être hashé
-                /* let bcrypt = require('bcryptjs'),
-                entity.password = bcrypt.hashSync(
-                entity.password, 
-                bcrypt.genSaltSync(10)
-            ), */
             civility : request.body.civility || '',
             firstname: request.body.firstname || '',
             lastname: request.body.lastname || '',
             phone: request.body.phone || ''
         }; 
+        let bcrypt = require('bcryptjs');
+        entity.password = bcrypt.hashSync(entity.password,  bcrypt.genSaltSync(10));
 
         let repo = new RepoUser();
         // Promesse (méthode asynchrone)
@@ -34,6 +31,7 @@ module.exports = class Register {
                 // sinon on tente de le créer
                 repo.add(entity).then((user) => {
                     // resolve
+                    request.flash('notify', 'Votre compte a bien été créé.');
                     response.redirect('/');
                     // reject
                 }, (err) => {
