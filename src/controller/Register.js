@@ -16,6 +16,8 @@ module.exports = class Register {
         }; 
 
         let repo = new RepoUser();
+        // Promesse (méthode asynchrone)
+        // Quand on a la réponse, alors ("then") redirection
         repo.emailExists(entity.email).then((result) => {
             // si l'email existe deja dans la bdd
             if(result === true) {
@@ -26,8 +28,11 @@ module.exports = class Register {
             } else {
                 // sinon on tente de le créer
                 repo.add(entity).then((user) => {
+                    // resolve
                     response.redirect('/');
+                    // reject
                 }, (err) => {
+                    // console.log(err);
                     response.render('register/form', { 
                         error : `L'enregistrement en base de données a échoué`, 
                         form : entity 

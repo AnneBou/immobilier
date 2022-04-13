@@ -14,7 +14,7 @@ app.set('view engine', 'pug');
 //--------------------------------------------------------------------
 const session = require('express-session');
 app.use(session({
-    secret: config.appKey, resave:false, saveUninitialized:false, 
+    secret: process.env.APP_KEY, resave:false, saveUninitialized:false, 
     cookie: {maxAge: 3600000} 
 }));
 //--------------------------------------------------------------------
