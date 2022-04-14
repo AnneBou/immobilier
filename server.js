@@ -4,9 +4,12 @@ const path = require('path');
 require('dotenv').config()
  
 //--------------------------------------------------------------------
-//      Mise en place du moteur de template
+//      Parse les données soumises en post
 //--------------------------------------------------------------------
 app.use(express.urlencoded({ extended: false }));
+//--------------------------------------------------------------------
+//      Mise en place du moteur de template
+//--------------------------------------------------------------------
 app.set('views', path.join(__dirname, 'templates'));
 app.set('view engine', 'pug');
 //--------------------------------------------------------------------

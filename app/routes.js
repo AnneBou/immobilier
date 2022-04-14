@@ -22,10 +22,26 @@ module.exports = (app) => {
     app.get('/deconnexion', (req, res) => {
         let Authenticated = require('../src/controller/Authenticated.js');
         (new Authenticated()).disconnect(req, res);
-      });      
+      });     
+    //   Accueil admin 
       app.get('/admin', (req, res) => {
         let Dashboard = require('../src/controller/Dashboard.js');
         (new Dashboard()).print(req, res);
-    });    
+    }); 
+    // Liste des biens
+    app.get('/admin/realty', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).print(req, res);
+    });
+    // Ajouter un bien (get)
+    app.get('/admin/realty/add', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).printForm(req, res);
+    });
+    // Ajouter un bien (post)
+    app.post('/admin/realty/add', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).process(req, res);
+    });
 
 };
