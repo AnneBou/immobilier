@@ -17,11 +17,41 @@ app.use(session({
     secret: process.env.APP_KEY, resave:false, saveUninitialized:false, 
     cookie: {maxAge: 3600000} 
 }));
+
+const sassMiddleware = require('node-sass-middleware');
+app.use(sassMiddleware({
+    /* Options */
+    src: path.join(__dirname, 'build/'),
+    dest: path.join(__dirname, 'public/'),
+    debug: false,   // true pour voir les traitements effectués
+    indentedSyntax: false, // true Compiles files with the .sass extension
+    outputStyle: 'compressed'
+}));
+
+app.use((req,res,next) => {
+    res.locals.session = req.session;
+    next();
+});
 //--------------------------------------------------------------------
 //      Ajout du midlleware express flash messages
 //--------------------------------------------------------------------
 const flash = require('express-flash-messages');
 app.use(flash());
+//--------------------------------------------------------------------
+//      Spécifique à la simulation d'une connexion en mode get
+//--------------------------------------------------------------------
+if(process.env.APP_ENV === 'dev') {
+    app.use((req, res, next) =>{
+        req.session.user = {
+            email : "anne@gmail.com",
+            civility : "2",
+            firstname: "Anne",
+            lastname: "Bou",
+            phone: "0607080910",
+        };
+        next();
+    });
+}
 //--------------------------------------------------------------------
 //      Mise en place du répertoire static
 //--------------------------------------------------------------------
@@ -32,20 +62,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //--------------------------------------------------------------------
 require('./app/routes')(app);
  
-const sassMiddleware = require('node-sass-middleware');
-app.use(sassMiddleware({
-    /* Options */
-    src: path.join(__dirname, 'build/'),
-    dest: path.join(__dirname, 'public/'),
-    debug: false,   // true pour voir les traitements effectués
-    indentedSyntax: false, // true Compiles files with the .sass extension
-    outputStyle: 'compressed'
-}));
-app.use((req,res,next) => {
-    res.locals.session = req.session;
-    next();
-});
-
 //--------------------------------------------------------------------
 //     Ecoute du serveur HTTP
 //--------------------------------------------------------------------
