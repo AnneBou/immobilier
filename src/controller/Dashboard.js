@@ -1,5 +1,6 @@
 module.exports = class Dashboard {
     print(request, response) {
+        // Vérifie qu'on est bien connecté
         if(typeof request.session.user !== 'undefined') {
             response.render('admin/dashboard/index');
             return;

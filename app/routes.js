@@ -29,7 +29,7 @@ module.exports = (app) => {
         (new Dashboard()).print(req, res);
     }); 
     // Liste des biens
-    app.get('/admin/realty', (req, res) => {
+    app.get('/admin/realty/list', (req, res) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).print(req, res);
     });

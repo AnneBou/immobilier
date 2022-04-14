@@ -1,0 +1,33 @@
+extends ../layout.pug
+block content
+    h1 Enregistrer un bien
+    if error 
+        div.alert.alert-danger #{error}
+    form(action='/admin/realty/add' method="post")
+
+        fieldset 
+            legend Adresse du bien
+            .mb-3
+                label.form-label Nom du vendeur
+                input.form-control(type="text" placeholder="Nom du vendeur" name="address[lastname]")  
+
+            .mb-3
+                label.form-label Adresse
+                input(type="text" class="form-control" placeholder="Adresse" name="address[address]")  
+    
+            .mb-3
+            label Code postal
+            input(type="text" class="form-control" placeholder="Code postal" name="address[zipcode]")  
+
+            .mb-3
+            label Ville
+            input(type="text" class="form-control" placeholder="Ville" name="address[city]")  
+
+            .mb-3
+            label Informations complémentaires
+            input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="address[info]")  
+
+        .row.justify-content-center
+            .col-2
+                .mt-3
+                button.btn.btn-primary(type="submit") Enregistrer

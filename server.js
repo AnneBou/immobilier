@@ -6,7 +6,7 @@ require('dotenv').config()
 //--------------------------------------------------------------------
 //      Parse les données soumises en post
 //--------------------------------------------------------------------
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 //--------------------------------------------------------------------
 //      Mise en place du moteur de template
 //--------------------------------------------------------------------
