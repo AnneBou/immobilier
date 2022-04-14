@@ -17,6 +17,11 @@ app.use(session({
     secret: process.env.APP_KEY, resave:false, saveUninitialized:false, 
     cookie: {maxAge: 3600000} 
 }));
+app.use((req,res,next) => {
+    res.locals.session = req.session;
+    res.locals.route = req._parsedUrl.pathname;
+    next();
+});
 
 const sassMiddleware = require('node-sass-middleware');
 app.use(sassMiddleware({

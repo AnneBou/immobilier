@@ -23,5 +23,9 @@ module.exports = (app) => {
         let Authenticated = require('../src/controller/Authenticated.js');
         (new Authenticated()).disconnect(req, res);
       });      
-   
+      app.get('/admin', (req, res) => {
+        let Dashboard = require('../src/controller/Dashboard.js');
+        (new Dashboard()).print(req, res);
+    });    
+
 };
