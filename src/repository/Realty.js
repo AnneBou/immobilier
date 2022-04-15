@@ -34,7 +34,7 @@ const RealtySchema = mongoose.Schema({
         phone : { type: Number }
     },
     date : { type: Date, default: Date.now },
-    slug: { type: String, slug: ['realty.type','address.city'], unique:true },
+    slug: { type: String, slug: ['address.city','agent.lastname'], unique:true },
 },{versionKey: false});
  
 module.exports = class Realty { // Accès à la collection Realty
