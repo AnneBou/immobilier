@@ -4,7 +4,8 @@ module.exports = class Realty {
     // Liste des biens (get)
     print(request, response) {
       if(typeof request.session.user !== 'undefined') {
-         response.render('admin/realty/list');
+         // On affiche tous les biens grâce à la méthode find
+         response.render('admin/realty/list', {realties : []});
          return;
       }
        request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
@@ -25,10 +26,13 @@ module.exports = class Realty {
     process(request, response) {
       console.log(request.body);
       let entity = {
-        address : request.body.address,
-        contact : request.body.contact,
-        realty : request.body.realty,
-        agent : request.body.agent
+        // On récupère les données de l'objet ou un tableau si c'est vide
+        address : request.body.address || {},
+        contact : request.body.contact || {},
+        realty : request.body.realty || {},
+        agent : request.body.agent || {},
+        // On récupère le nom de l'agent grâce à l'ID de sa session (utilisateur admin)
+        // agent : request.session.user
         // Alternative :
         // address : {
         //   address1 : request.body.address.address || '',

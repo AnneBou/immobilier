@@ -1,5 +1,6 @@
 require('../../app/database.js');
 const mongoose = require('mongoose');
+// const UserSchema = require('./UserSchema.js');
 
 const slug = require('mongoose-slug-updater');
 mongoose.plugin(slug);
@@ -27,6 +28,7 @@ const RealtySchema = mongoose.Schema({
         price : { type: Number },
         info : { type: String },
     },
+    // agent : { type: UserSchema },
     agent : {
         email : { type: String },
         firstname : { type: String },
@@ -42,18 +44,18 @@ module.exports = class Realty { // Accès à la collection Realty
         this.db = mongoose.model('Realty', RealtySchema); 
     }
 
-    add(realtyEntity) {
+    find(search = {}) {
         return new Promise((resolve, reject) => {
-            this.db.create(realtyEntity, function (err, realty) {
+            this.db.find(search, function (err, realty) {
                 if (err) reject(err);
                 resolve(realty);
             });
         });
     }
 
-    find(search = {}) {
+    add(realtyEntity) {
         return new Promise((resolve, reject) => {
-            this.db.find(search, function (err, realty) {
+            this.db.create(realtyEntity, function (err, realty) {
                 if (err) reject(err);
                 resolve(realty);
             });
