@@ -6,8 +6,8 @@ const RealtySchema = mongoose.Schema({
         address1 : { type: String },
         address2 : { type: String },
         city : {type: String },
-        zipcode: { type: String },
-        info: { type: String },
+        zipcode : { type: String },
+        info : { type: String },
     },
     contact : {
         firstname : { type: String },
@@ -17,7 +17,20 @@ const RealtySchema = mongoose.Schema({
         mobile : { type: Number },
         info : { type: String },
     },
-    date: { type: Date, default: Date.now }
+    realty : {
+        type : { type: String },
+        area : { type: Number },
+        room : { type: Number },
+        price : { type: Number },
+        info : { type: String },
+    },
+    agent : {
+        email : { type: String },
+        firstname : { type: String },
+        lastname : { type: String },
+        phone : { type: Number }
+    },
+    date : { type: Date, default: Date.now }
 },{versionKey: false});
  
 module.exports = class Realty { // Accès à la collection Realty

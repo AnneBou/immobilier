@@ -27,6 +27,8 @@ module.exports = class Realty {
       let entity = {
         address : request.body.address,
         contact : request.body.contact,
+        realty : request.body.realty,
+        agent : request.body.agent
         // Alternative :
         // address : {
         //   address1 : request.body.address.address || '',

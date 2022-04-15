@@ -42,8 +42,8 @@ block content
                 input(type="email" class="form-control" placeholder="Email" name="contact[email]")  
 
             .mb-3
-                label Numéro de téléphone
-                input(type="number" class="form-control" placeholder="Numéro de téléphone" name="contact[phone]")  
+                label Numéro de téléphone fixe
+                input(type="number" class="form-control" placeholder="Numéro de téléphone fixe" name="contact[phone]")  
 
             .mb-3
                 label Numéro de mobile
@@ -52,6 +52,46 @@ block content
             .mb-3
                 label Informations complémentaires
                 input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="contact[info]")  
+        
+        fieldset 
+            legend Informations du bien
+            .mb-3
+                label Type de bien
+                input(type="text" class="form-control" placeholder="Type de bien" name="realty[type]")
+
+            .mb-3
+                label Surface (m²)
+                input(type="number" class="form-control" placeholder="Surface en m²" name="realty[area]")
+
+            .mb-3
+                label Nombre de pièces
+                input(type="number" class="form-control" placeholder="Nombre de pièces" name="realty[room]")
+
+            .mb-3
+                label Prix net vendeur
+                input(type="number" class="form-control" placeholder="Prix net vendeur" name="realty[price]")
+
+            .mb-3
+                label Informations complémentaires
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="realty[info]")
+
+        fieldset 
+            legend Agent immobilier
+            .mb-3
+                label Email
+                input(type="email" class="form-control" placeholder="Email" name="agent[email]")
+
+            .mb-3
+                label Prénom
+                input(type="text" class="form-control" placeholder="Prénom" name="agent[firstname]")
+
+            .mb-3
+                label Nom de famille
+                input(type="text" class="form-control" placeholder="Nom de famille" name="agent[lastname]")
+
+            .mb-3
+                label Numéro de téléphone
+                input(type="number" class="form-control" placeholder="Numéro de téléphone" name="agent[phone]")
 
         .row.justify-content-center
             .col-2
