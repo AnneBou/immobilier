@@ -3,14 +3,21 @@ const mongoose = require('mongoose');
 
 const RealtySchema = mongoose.Schema({
     address : {
-        lastname : {  type: String },
-        address : { type: String },
+        address1 : { type: String },
+        address2 : { type: String },
         city : {type: String },
         zipcode: { type: String },
-        city: { type: String },
         info: { type: String },
-        date: { type: Date, default: Date.now }
-    }
+    },
+    contact : {
+        firstname : { type: String },
+        lastname : { type: String },
+        email : { type: String },
+        phone : { type: Number },
+        mobile : { type: Number },
+        info : { type: String },
+    },
+    date: { type: Date, default: Date.now }
 },{versionKey: false});
  
 module.exports = class Realty { // Accès à la collection Realty

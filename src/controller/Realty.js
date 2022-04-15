@@ -25,15 +25,17 @@ module.exports = class Realty {
     process(request, response) {
       console.log(request.body);
       let entity = {
-        // address : request.body.address
+        address : request.body.address,
+        contact : request.body.contact,
         // Alternative :
-        realty : {
-          lastname : request.body.address.lastname || '',
-          address : request.body.address.address || '',
-          zipcode : request.body.address.zipcode || '',
-          city : request.body.address.city || '',
-          info : request.body.address.info || ''
-        }
+        // address : {
+        //   address1 : request.body.address.address || '',
+        //   address2 : request.body.address.address || '',
+        //   zipcode : request.body.address.zipcode || '',
+        //   city : request.body.address.city || '',
+        //   info : request.body.address.info || ''
+        // },
+
       };
 
       let repo = new RepoRealty();

@@ -8,26 +8,52 @@ block content
         fieldset 
             legend Adresse du bien
             .mb-3
-                label.form-label Nom du vendeur
-                input.form-control(type="text" placeholder="Nom du vendeur" name="address[lastname]")  
+                label.form-label Adresse 1
+                input(type="text" class="form-control" placeholder="Adresse" name="address[address1]")  
 
             .mb-3
-                label.form-label Adresse
-                input(type="text" class="form-control" placeholder="Adresse" name="address[address]")  
+                label.form-label Adresse 2
+                input(type="text" class="form-control" placeholder="Adresse" name="address[address2]")
     
             .mb-3
-            label Code postal
-            input(type="text" class="form-control" placeholder="Code postal" name="address[zipcode]")  
+                label Code postal
+                input(type="text" class="form-control" placeholder="Code postal" name="address[zipcode]")  
 
             .mb-3
-            label Ville
-            input(type="text" class="form-control" placeholder="Ville" name="address[city]")  
+                label Ville
+                input(type="text" class="form-control" placeholder="Ville" name="address[city]")  
 
             .mb-3
-            label Informations complémentaires
-            input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="address[info]")  
+                label Informations complémentaires
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="address[info]")  
+
+        fieldset 
+            legend Contact du bien 
+            .mb-3
+                label Prénom
+                input(type="text" class="form-control" placeholder="Prénom" name="contact[firstname]")  
+
+            .mb-3
+                label Nom de famille
+                input(type="text" class="form-control" placeholder="Nom de famille" name="contact[lastname]")  
+
+            .mb-3
+                label Email
+                input(type="email" class="form-control" placeholder="Email" name="contact[email]")  
+
+            .mb-3
+                label Numéro de téléphone
+                input(type="number" class="form-control" placeholder="Numéro de téléphone" name="contact[phone]")  
+
+            .mb-3
+                label Numéro de mobile
+                input(type="number" class="form-control" placeholder="Numéro de mobile" name="contact[mobile]")  
+
+            .mb-3
+                label Informations complémentaires
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="contact[info]")  
 
         .row.justify-content-center
             .col-2
                 .mt-3
-                button.btn.btn-primary(type="submit") Enregistrer
+                    button.btn.btn-primary(type="submit") Enregistrer
