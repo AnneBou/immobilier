@@ -4,13 +4,15 @@ module.exports = class Realty {
     // Liste des biens (get)
     print(request, response) {
       if(typeof request.session.user !== 'undefined') {
-         // On affiche tous les biens grâce à la méthode find
-         response.render('admin/realty/list', {realties : []});
-         return;
+          let repo = new RepoRealty();
+          repo.find().then((realties) => {
+              response.render('admin/realty/list', {realties});
+          });
+      } else {
+          request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+          response.redirect('/connexion');  
       }
-       request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
-      response.redirect('/connexion');  
-    }
+  }
 
     // Affichage du formulaire (get)
     printForm(request, response) {
