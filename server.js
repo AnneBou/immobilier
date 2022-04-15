@@ -48,18 +48,18 @@ app.use(flash());
 //--------------------------------------------------------------------
 //      Spécifique à la simulation d'une connexion en mode get
 //--------------------------------------------------------------------
-if(process.env.APP_ENV === 'dev') {
-    app.use((req, res, next) =>{
-        req.session.user = {
-            email : "luisf@gmail.com",
-            civility : "1",
-            firstname: "Luis",
-            lastname: "Flores",
-            phone: "0607080910",
-        };
-        next();
-    });
-}
+// if(process.env.APP_ENV === 'dev') {
+//     app.use((req, res, next) =>{
+//         req.session.user = {
+//             email : "luisf@gmail.com",
+//             civility : "1",
+//             firstname: "Luis",
+//             lastname: "Flores",
+//             phone: "0607080910",
+//         };
+//         next();
+//     });
+// }
 //--------------------------------------------------------------------
 //      Mise en place du répertoire static
 //--------------------------------------------------------------------
