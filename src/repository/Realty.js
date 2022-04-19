@@ -70,5 +70,14 @@ module.exports = class Realty { // Accès à la collection Realty
             });
         });
     }
+    // Pour la suppression et la modification
+    findById(id) {
+        return new Promise((resolve, reject) => {
+            this.db.findById(id, function (err, realty) {
+                if (err || realty === null) reject();
+                resolve(realty);
+            });
+        });
+    }
 
 }

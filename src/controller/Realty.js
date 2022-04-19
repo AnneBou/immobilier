@@ -16,13 +16,27 @@ module.exports = class Realty {
 
     // Affichage du formulaire (get)
     printForm(request, response) {
-      if(typeof request.session.user !== 'undefined') {
-         response.render('admin/realty/add');
-         return;
-      }
-       request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
-      response.redirect('/connexion');  
+        if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
+            request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+            response.redirect('/connexion');  
+            return;
+        }
+        // on est en modification
+        if(typeof request.params.id !== 'undefined') {
+            let repo = new RepoRealty();
+            repo.findById(request.params.id).then((realty) => {
+                response.render('admin/realty/add', {form : realty});
+            }, () => {
+                request.flash('error',`Le bien n'a pas été trouvé`)
+                response.redirect('list');
+            });   
+        } 
+        // on est en ajout
+        else {
+            response.render('admin/realty/add', {form: { contact: {}, address : {}}});
+        }
     }
+
 
     // Prise en compte du formulaire : ajout d'un bien (post)
     process(request, response) {

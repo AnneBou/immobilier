@@ -51,5 +51,10 @@ module.exports = (app) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).delete(req, res);
     });
+    // Modifier le lien
+    app.get('/admin/realty/edit/:id', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).printForm(req, res);
+    });
 
 };
