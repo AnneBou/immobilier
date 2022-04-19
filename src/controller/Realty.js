@@ -25,7 +25,7 @@ module.exports = class Realty {
         if(typeof request.params.id !== 'undefined') {
             let repo = new RepoRealty();
             repo.findById(request.params.id).then((realty) => {
-                response.render('/admin/realty/edit/'+realty._id, {form : realty});
+                response.render('/admin/realty/edit/'+realty._id, {form: { contact: {}, address : {}}});
             }, () => {
                 request.flash('error',`Le bien n'a pas été trouvé`)
                 response.redirect('list');
