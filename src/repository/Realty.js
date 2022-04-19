@@ -62,4 +62,13 @@ module.exports = class Realty { // Accès à la collection Realty
         });
     }
 
+    delete(filter = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.deleteOne(filter, function (err) {
+                if (err) reject(err);
+                resolve();
+            });
+        });
+    }
+
 }
