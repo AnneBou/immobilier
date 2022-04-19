@@ -76,15 +76,15 @@ module.exports = class Realty {
         let repo = new RepoRealty();
         repo.delete({_id : request.params.id}).then(() => {
             request.flash('notify', 'Le bien a été supprimé.');
-            response.redirect('/admin/realty');
+            response.redirect('list');
         }, () => {
             request.flash('error', 'La suppression du bien a échoué.');
-            response.redirect('/admin/realty');
+            response.redirect('list');
         });  
     } 
     else {
         request.flash('error', 'Une erreur est survenue.');
-        response.redirect('/admin/realty');
+        response.redirect('list');
     }
 }
 

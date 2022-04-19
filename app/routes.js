@@ -1,4 +1,7 @@
 module.exports = (app) => {
+    app.get('/hello',(req,res) => {
+        res.send('Hello world');
+    });
     app.get('/', (req, res) => {
         let Home = require('../src/controller/Home.js');
         (new Home()).print(req, res);
