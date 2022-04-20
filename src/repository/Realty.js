@@ -1,6 +1,5 @@
 require('../../app/database.js');
 const mongoose = require('mongoose');
-// const UserSchema = require('./UserSchema.js');
 
 const slug = require('mongoose-slug-updater');
 mongoose.plugin(slug);
@@ -39,20 +38,13 @@ const RealtySchema = mongoose.Schema({
     slug: { type: String, slug: ['address.city','agent.lastname'], unique:true },
 },{versionKey: false});
  
-module.exports = class Realty { // Accès à la collection Realty
+// Accès à la collection Realty
+module.exports = class Realty {
     constructor() {
         this.db = mongoose.model('Realty', RealtySchema); 
     }
 
-    find(search = {}) {
-        return new Promise((resolve, reject) => {
-            this.db.find(search, function (err, realty) {
-                if (err) reject(err);
-                resolve(realty);
-            });
-        });
-    }
-
+    // Ajouter un bien
     add(realtyEntity) {
         return new Promise((resolve, reject) => {
             this.db.create(realtyEntity, function (err, realty) {
@@ -62,20 +54,12 @@ module.exports = class Realty { // Accès à la collection Realty
         });
     }
 
-    updateOne(realtyEntity, id) {
+    // Liste des biens
+    find(search = {}) {
         return new Promise((resolve, reject) => {
-            this.db.findOneAndUpdate({_id:id},realtyEntity, function (err, realty) {
+            this.db.find(search, function (err, realty) {
                 if (err) reject(err);
                 resolve(realty);
-            });
-        });
-    }
-
-    delete(filter = {}) {
-        return new Promise((resolve, reject) => {
-            this.db.deleteOne(filter, function (err) {
-                if (err) reject(err);
-                resolve();
             });
         });
     }
@@ -86,6 +70,26 @@ module.exports = class Realty { // Accès à la collection Realty
             this.db.findById(id, function (err, realty) {
                 if (err || realty === null) reject();
                 resolve(realty);
+            });
+        });
+    }
+
+    // Modifier un bien
+    edit(realtyEntity, id) {
+        return new Promise((resolve, reject) => {
+            this.db.findOneAndUpdate({_id:id},realtyEntity, function (err, realty) {
+                if (err) reject(err);
+                resolve(realty);
+            });
+        });
+    }
+
+    // Supprimer un bien
+    delete(filter = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.deleteOne(filter, function (err) {
+                if (err) reject(err);
+                resolve();
             });
         });
     }

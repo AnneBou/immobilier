@@ -1,103 +1,91 @@
 const RepoRealty = require('../repository/Realty');
 
 module.exports = class Realty {
-    // Liste des biens (get)
-    print(request, response) {
-      if(typeof request.session.user !== 'undefined') {
-          let repo = new RepoRealty();
-          repo.find().then((realties) => {
-              response.render('admin/realty/list', {realties});
-          });
-      } else {
-          request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
-          response.redirect('/connexion');  
-      }
-    }
 
-    // Affichage du formulaire (get)
+    // Afficher un formulaire (get)
     printForm(request, response) {
         if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
             request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
             response.redirect('/connexion');  
             return;
         }
-        // on est en modification (formulaire rempli avec les données récupérées par l'id)
+
+        // Modifier un formulaire existant
         if(typeof request.params.id !== 'undefined') {
             let repo = new RepoRealty();
             repo.findById(request.params.id).then((realty) => {
                 console.log(realty);
-                response.render('admin/realty/add', {form : realty });
+                response.render('admin/realty/form', {form : realty });
             }, () => {
                 request.flash('error',`Le bien n'a pas été trouvé`);
-                response.redirect('list');
+                response.redirect('/admin/realty/list');
             });   
         } 
-        // on est en ajout (formulaire vide)
+
+        // Remplir un formulaire vide (ajouter)
         else {
-            response.render('admin/realty/add', {form: { realty:{}, agent : {}, contact: {}, address : {}}});
+            response.render('admin/realty/form', {form: { realty:{}, agent : {}, contact: {}, address : {}}});
         }
     }
     
-    
-    // Prise en compte du formulaire : ajout d'un bien (post)
+    // Ajouter un bien (post)
     process(request, response) {
-        console.log(request.body);
-      let entity = {
-        // On récupère les données de l'objet ou un tableau si c'est vide
-        address : request.body.address || {},
-        contact : request.body.contact || {},
-        realty : request.body.realty || {},
-        agent : request.body.agent || {},
-        // On récupère le nom de l'agent grâce à l'ID de sa session (utilisateur admin)
-        // agent : request.session.user
-        // Alternative :
-        // address : {
-        //   address1 : request.body.address.address || '',
-        //   address2 : request.body.address.address || '',
-        //   zipcode : request.body.address.zipcode || '',
-        //   city : request.body.address.city || '',
-        //   info : request.body.address.info || ''
-        // },
-
-      };
-
-      let repo = new RepoRealty();
-      // Promesse (méthode asynchrone)
-      // Quand on a la réponse, alors ("then") redirection
-      if(typeof request.params.id !== 'undefined') {
-        // Modification du formulaire (post)
-        repo.updateOne(entity, request.params.id).then((realty) =>{
-            request.flash('notify', 'Le bien a été modifié avec succès.');
-            response.redirect('/admin/realty/list');
-        }, () => {
-            request.flash('error',`Le bien n'a pas été trouvé`);
-            response.redirect('/admin/realty/list'); 
-        });
-      } else {
-          repo.add(entity).then((user) => {
-              // resolve
-              request.flash('notify', 'Le bien a été ajouté avec succès.');
-              response.redirect('/admin/realty/list');
-              // reject
+        let entity = {
+            // On récupère les données de l'objet ou un tableau si c'est vide
+            address : request.body.address || {},
+            contact : request.body.contact || {},
+            realty : request.body.realty || {},
+            agent : request.body.agent || {},
+        };
+    
+        let repo = new RepoRealty();
+    
+        // Modifier un bien (post)
+        if(typeof request.params.id !== 'undefined') {
+            repo.updateOne(entity, request.params.id).then((realty) =>{
+                request.flash('notify', 'Le bien a été modifié avec succès.');
+                response.redirect('/admin/realty/list');
+            }, () => {
+                request.flash('error',`Le bien n'a pas été trouvé`);
+                response.redirect('/admin/realty/list'); 
+            });
+        
+        // Ajouter un bien (post)
+        } else {
+            repo.add(entity).then((user) => {
+                // resolve
+                request.flash('notify', 'Le bien a été ajouté avec succès.');
+                response.redirect('/admin/realty/list');
+                // reject
             }, (err) => {
-                response.render('add', { 
+                response.render('admin/realty/form', { 
                     error : `L'enregistrement en base de données a échoué`, 
                     form : entity 
                 }); 
             });   
-      }
+        }
     }
-    
 
-    // Suppression du formulaire
+    // Liste des biens
+    print(request, response) {
+        if(typeof request.session.user !== 'undefined') {
+            let repo = new RepoRealty();
+            repo.find().then((realties) => {
+                response.render('/admin/realty/list', {realties});
+            });
+        } else {
+            request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+            response.redirect('/connexion');  
+        }
+    }
 
+    // Supprimer un bien
     delete(request, response) {
         if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
             request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
             response.redirect('/connexion');  
             return;
         }
-
         if(typeof request.params.id != 'undefined' && request.params.id != '') {
             let repo = new RepoRealty();
             repo.delete({_id : request.params.id}).then(() => {
@@ -113,7 +101,6 @@ module.exports = class Realty {
             response.redirect('/admin/realty/list');
         }
     }
-
 
 };
   
