@@ -8,6 +8,12 @@ module.exports = (app) => {
         (new Home()).print(req, res);
     });
 
+    // Détails d'un bien
+    app.get('/detail/:id', (req, res) => {
+        let Home = require('../src/controller/Home.js');
+        (new Home()).printRealty(req, res);
+    });
+
     // Inscription (get)
     app.get('/inscription', (req, res) => {
         let Register = require('../src/controller/Register.js');

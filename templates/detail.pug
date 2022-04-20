@@ -1,0 +1,17 @@
+extends layout.pug 
+
+block content 
+        h1.h2
+            if realty.realty.type == 1 
+                span Maison #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+            else if realty.realty.type == 2
+                span Appartement  #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+            else if realty.realty.type == 3
+                span Terrain  #{realty.realty.area}m² - #{realty.address.city}
+            else if realty.realty.type == 4
+                span Parking - #{realty.address.city}
+            else if realty.realty.type == 5
+                span Local / Bureau - #{realty.address.city}
+            else 
+                span #{realty.address.city}
+                    

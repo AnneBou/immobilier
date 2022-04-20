@@ -21,8 +21,8 @@ block content
                                 else if realty.realty.type == 5
                                     span Local / Bureau - #{realty.address.city}
                                 else 
-                                    span Autre - #{realty.address.city}
+                                    span #{realty.address.city}
                         p.card-text
                                 if realty.realty.info != ''
                                     span #{realty.realty.info}
-                        a.btn.btn-primary(href='#') En savoir plus
+                        a.btn.btn-primary(href='/detail/'+realty._id) En savoir plus
