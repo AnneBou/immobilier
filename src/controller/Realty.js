@@ -71,7 +71,7 @@ module.exports = class Realty {
         if(typeof request.session.user !== 'undefined') {
             let repo = new RepoRealty();
             repo.find().then((realties) => {
-                response.render('/admin/realty/list', {realties});
+                response.render('admin/realty/list', {realties});
             });
         } else {
             request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
