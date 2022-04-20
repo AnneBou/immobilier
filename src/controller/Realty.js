@@ -12,7 +12,7 @@ module.exports = class Realty {
           request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
           response.redirect('/connexion');  
       }
-  }
+    }
 
     // Affichage du formulaire (get)
     printForm(request, response) {
@@ -21,27 +21,27 @@ module.exports = class Realty {
             response.redirect('/connexion');  
             return;
         }
-        // on est en modification
+        // on est en modification (formulaire rempli avec les données récupérées par l'id)
         if(typeof request.params.id !== 'undefined') {
             let repo = new RepoRealty();
             repo.findById(request.params.id).then((realty) => {
                 console.log(realty);
-                response.render('admin/realty/add', {form: realty});
+                response.render('admin/realty/add', {form : realty });
             }, () => {
-                request.flash('error',`Le bien n'a pas été trouvé`)
+                request.flash('error',`Le bien n'a pas été trouvé`);
                 response.redirect('list');
             });   
         } 
-        // on est en ajout
+        // on est en ajout (formulaire vide)
         else {
-            response.render('admin/realty/add', {form: { contact: {}, address : {}}});
+            response.render('admin/realty/add', {form: { realty:{}, agent : {}, contact: {}, address : {}}});
         }
     }
-
-
+    
+    
     // Prise en compte du formulaire : ajout d'un bien (post)
     process(request, response) {
-      console.log(request.body);
+        console.log(request.body);
       let entity = {
         // On récupère les données de l'objet ou un tableau si c'est vide
         address : request.body.address || {},
@@ -64,44 +64,55 @@ module.exports = class Realty {
       let repo = new RepoRealty();
       // Promesse (méthode asynchrone)
       // Quand on a la réponse, alors ("then") redirection
-      repo.add(entity).then((user) => {
-          // resolve
-          request.flash('notify', 'Le bien a été ajouté avec succès.');
-          response.redirect('list');
-          // reject
-      }, (err) => {
-          response.render('add', { 
-              error : `L'enregistrement en base de données a échoué`, 
-              form : entity 
-          }); 
-      });         
-  }
-
-  // Suppression du formulaire
-
-  delete(request, response) {
-    if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
-        request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
-        response.redirect('/connexion');  
-        return;
-    }
-
-    if(typeof request.params.id != 'undefined'
-&& request.params.id != '') {
-        let repo = new RepoRealty();
-        repo.delete({_id : request.params.id}).then(() => {
-            request.flash('notify', 'Le bien a été supprimé.');
-            response.redirect('list');
+      if(typeof request.params.id !== 'undefined') {
+        // Modification du formulaire (post)
+        repo.updateOne(entity, request.params.id).then((realty) =>{
+            request.flash('notify', 'Le bien a été modifié avec succès.');
+            response.redirect('/admin/realty/list');
         }, () => {
-            request.flash('error', 'La suppression du bien a échoué.');
-            response.redirect('list');
-        });  
-    } 
-    else {
-        request.flash('error', 'Une erreur est survenue.');
-        response.redirect('list');
+            request.flash('error',`Le bien n'a pas été trouvé`);
+            response.redirect('/admin/realty/list'); 
+        });
+      } else {
+          repo.add(entity).then((user) => {
+              // resolve
+              request.flash('notify', 'Le bien a été ajouté avec succès.');
+              response.redirect('/admin/realty/list');
+              // reject
+            }, (err) => {
+                response.render('add', { 
+                    error : `L'enregistrement en base de données a échoué`, 
+                    form : entity 
+                }); 
+            });   
+      }
     }
-}
+    
+
+    // Suppression du formulaire
+
+    delete(request, response) {
+        if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
+            request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+            response.redirect('/connexion');  
+            return;
+        }
+
+        if(typeof request.params.id != 'undefined' && request.params.id != '') {
+            let repo = new RepoRealty();
+            repo.delete({_id : request.params.id}).then(() => {
+                request.flash('notify', 'Le bien a été supprimé.');
+                response.redirect('/admin/realty/list');
+            }, () => {
+                request.flash('error', 'La suppression du bien a échoué.');
+                response.redirect('/admin/realty/list');
+            });  
+        } 
+        else {
+            request.flash('error', 'Une erreur est survenue.');
+            response.redirect('/admin/realty/list');
+        }
+    }
 
 
 };

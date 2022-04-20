@@ -1,7 +1,7 @@
 module.exports = (app) => {
-    app.get('/hello',(req,res) => {
-        res.send('Hello world !');
-    });
+
+    //////////// USER /////////////
+
     app.get('/', (req, res) => {
         let Home = require('../src/controller/Home.js');
         (new Home()).print(req, res);
@@ -25,7 +25,10 @@ module.exports = (app) => {
     app.get('/deconnexion', (req, res) => {
         let Authenticated = require('../src/controller/Authenticated.js');
         (new Authenticated()).disconnect(req, res);
-      });     
+      });   
+      
+    //////////// ADMIN /////////////
+
     //   Accueil admin 
       app.get('/admin', (req, res) => {
         let Dashboard = require('../src/controller/Dashboard.js');
@@ -51,10 +54,14 @@ module.exports = (app) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).delete(req, res);
     });
-    // Modifier le lien
+    // Modifier un bien (get)
     app.get('/admin/realty/edit/:id', (req, res) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).printForm(req, res);
     });
-
+    // Modifier un bien (post)
+    app.post('/admin/realty/edit/:id', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).process(req, res);
+    });
 };

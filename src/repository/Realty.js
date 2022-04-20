@@ -62,6 +62,15 @@ module.exports = class Realty { // Accès à la collection Realty
         });
     }
 
+    updateOne(realtyEntity, id) {
+        return new Promise((resolve, reject) => {
+            this.db.findOneAndUpdate({_id:id},realtyEntity, function (err, realty) {
+                if (err) reject(err);
+                resolve(realty);
+            });
+        });
+    }
+
     delete(filter = {}) {
         return new Promise((resolve, reject) => {
             this.db.deleteOne(filter, function (err) {
@@ -70,6 +79,7 @@ module.exports = class Realty { // Accès à la collection Realty
             });
         });
     }
+
     // Pour la suppression et la modification
     findById(id) {
         return new Promise((resolve, reject) => {
