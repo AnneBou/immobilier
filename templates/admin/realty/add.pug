@@ -9,95 +9,95 @@ block content
             legend Adresse du bien
             .mb-3
                 label.form-label Adresse 1
-                input(type="text" class="form-control" placeholder="Adresse" name="address[address1]")  
+                input(type="text" class="form-control" placeholder="Adresse" name="address[address1]" value=form.address.address1)  
 
             .mb-3
                 label.form-label Adresse 2
-                input(type="text" class="form-control" placeholder="Adresse" name="address[address2]")
+                input(type="text" class="form-control" placeholder="Adresse" name="address[address2]" value=form.address.address2)
     
             .mb-3
                 label Code postal
-                input(type="text" class="form-control" placeholder="Code postal" name="address[zipcode]")  
+                input(type="text" class="form-control" placeholder="Code postal" name="address[zipcode]" value=form.address.zipcode)  
 
             .mb-3
                 label Ville
-                input(type="text" class="form-control" placeholder="Ville" name="address[city]")  
+                input(type="text" class="form-control" placeholder="Ville" name="address[city]" value=form.address.city)  
 
             .mb-3
                 label Informations complémentaires
-                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="address[info]")  
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="address[info]" value=form.address.info)  
 
         fieldset 
             legend Contact du bien 
             .mb-3
                 label Prénom
-                input(type="text" class="form-control" placeholder="Prénom" name="contact[firstname]")  
+                input(type="text" class="form-control" placeholder="Prénom" name="contact[firstname]" value=form.contact.firstname)  
 
             .mb-3
                 label Nom de famille
-                input(type="text" class="form-control" placeholder="Nom de famille" name="contact[lastname]")  
+                input(type="text" class="form-control" placeholder="Nom de famille" name="contact[lastname]" value=form.contact.lastname)  
 
             .mb-3
                 label Email
-                input(type="email" class="form-control" placeholder="Email" name="contact[email]")  
+                input(type="email" class="form-control" placeholder="Email" name="contact[email]" value=form.contact.email)  
 
             .mb-3
                 label Numéro de téléphone fixe
-                input(type="number" class="form-control" placeholder="Numéro de téléphone fixe" name="contact[phone]")  
+                input(type="number" class="form-control" placeholder="Numéro de téléphone fixe" name="contact[phone]" value=form.contact.phone)  
 
             .mb-3
                 label Numéro de mobile
-                input(type="number" class="form-control" placeholder="Numéro de mobile" name="contact[mobile]")  
+                input(type="number" class="form-control" placeholder="Numéro de mobile" name="contact[mobile]" value=form.contact.mobile)  
 
             .mb-3
                 label Informations complémentaires
-                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="contact[info]")  
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="contact[info]" value=form.contact.info)  
         
         fieldset 
             legend Informations du bien
             .mb-3
                 label Type de bien
                 select(class="form-control" placeholder="Type de bien" name="realty[type]")
-                    option(value="1") Maison
-                    option(value="2") Appartement
-                    option(value="3") Terrain
-                    option(value="4") Parking
-                    option(value="5") Local / Bureau
-                    option(value="6") Autre
+                    option(value="1" selected= form.realty.type==1) Maison
+                    option(value="2" selected= form.realty.type==2) Appartement
+                    option(value="3" selected= form.realty.type==3) Terrain
+                    option(value="4" selected= form.realty.type==4) Parking
+                    option(value="5" selected= form.realty.type==5) Local / Bureau
+                    option(value="6" selected= form.realty.type==6) Autre
 
             .mb-3
                 label Surface (m²)
-                input(type="number" class="form-control" placeholder="Surface en m²" name="realty[area]")
+                input(type="number" class="form-control" placeholder="Surface en m²" name="realty[area]" value=form.realty.area)
 
             .mb-3
                 label Nombre de pièces
-                input(type="number" class="form-control" placeholder="Nombre de pièces" name="realty[room]")
+                input(type="number" class="form-control" placeholder="Nombre de pièces" name="realty[room]" value=form.realty.room)
 
             .mb-3
                 label Prix net vendeur
-                input(type="number" class="form-control" placeholder="Prix net vendeur" name="realty[price]")
+                input(type="number" class="form-control" placeholder="Prix net vendeur" name="realty[price]" value=form.realty.price)
 
             .mb-3
                 label Informations complémentaires
-                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="realty[info]")
+                input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="realty[info]" value=form.realty.info)
 
         fieldset 
             legend Agent immobilier
             .mb-3
                 label Email
-                input(type="email" class="form-control" placeholder="Email" name="agent[email]")
+                input(type="email" class="form-control" placeholder="Email" name="agent[email]" value=form.agent.email)
 
             .mb-3
                 label Prénom
-                input(type="text" class="form-control" placeholder="Prénom" name="agent[firstname]")
+                input(type="text" class="form-control" placeholder="Prénom" name="agent[firstname]" value=form.agent.firstname)
 
             .mb-3
                 label Nom de famille
-                input(type="text" class="form-control" placeholder="Nom de famille" name="agent[lastname]")
+                input(type="text" class="form-control" placeholder="Nom de famille" name="agent[lastname]" value=form.agent.lastname)
 
             .mb-3
                 label Numéro de téléphone
-                input(type="number" class="form-control" placeholder="Numéro de téléphone" name="agent[phone]")
+                input(type="number" class="form-control" placeholder="Numéro de téléphone" name="agent[phone]" value=form.agent.phone)
 
         .row.justify-content-center
             .col-2
