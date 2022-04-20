@@ -1,6 +1,6 @@
 module.exports = (app) => {
 
-    //////////// USER /////////////
+    //////////// SITE /////////////
 
     // Accueil
     app.get('/', (req, res) => {
@@ -38,7 +38,7 @@ module.exports = (app) => {
         (new Authenticated()).disconnect(req, res);
       });   
       
-    //////////// ADMIN /////////////
+    //////////// BACK-OFFICE /////////////
 
     // Accueil admin 
       app.get('/admin', (req, res) => {
