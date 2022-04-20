@@ -4,25 +4,25 @@ block content
     h1.h2 Liste des biens
  
     .row
-    each realty, key in realties
-        .col-md-12
-            .card(style='width: 18rem;')
-                img.card-img-top(src='/images/home-icon.png' alt='Pas de photo')
-            .card-body
-                h5.card-title
-                        if realty.realty.type == 1 
-                            span Maison #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
-                        else if realty.realty.type == 2
-                            span Appartement  #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
-                        else if realty.realty.type == 3
-                            span Terrain  #{realty.realty.area}m² - #{realty.address.city}
-                        else if realty.realty.type == 4
-                            span Parking - #{realty.address.city}
-                        else if realty.realty.type == 5
-                            span Local / Bureau - #{realty.address.city}
-                        else 
-                            span Autre - #{realty.address.city}
-                p.card-text
-                        if realty.realty.info != ''
-                            span #{realty.realty.info}
-                a.btn.btn-primary(href='#') En savoir plus
+        each realty, key in realties
+            .col-sm-4.mt-4
+                .card(style='width: 18rem;')
+                    img.card-img-top(src='/images/home-icon.png' alt='Pas de photo')
+                    .card-body
+                        h5.card-title
+                                if realty.realty.type == 1 
+                                    span Maison #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+                                else if realty.realty.type == 2
+                                    span Appartement  #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+                                else if realty.realty.type == 3
+                                    span Terrain  #{realty.realty.area}m² - #{realty.address.city}
+                                else if realty.realty.type == 4
+                                    span Parking - #{realty.address.city}
+                                else if realty.realty.type == 5
+                                    span Local / Bureau - #{realty.address.city}
+                                else 
+                                    span Autre - #{realty.address.city}
+                        p.card-text
+                                if realty.realty.info != ''
+                                    span #{realty.realty.info}
+                        a.btn.btn-primary(href='#') En savoir plus
