@@ -65,11 +65,14 @@ module.exports = (app) => {
     });
 
     // Ajouter un bien (post)
-    app.post('/admin/realty/add', (req, res) => {
-        let Realty = require('../src/controller/Realty.js');
-        (new Realty()).process(req, res);
+    app.post('/admin/realty/add', 
+    require('express-fileupload')({createParentPath: true}),
+    require('../src/services/LcParserService.js'), 
+    (req, res) => {
+       let Realty = require('../src/controller/Realty.js');
+       (new Realty()).process(req, res);
     });
-    
+
     // Modifier un bien (get)
     app.get('/admin/realty/edit/:id', (req, res) => {
         let Realty = require('../src/controller/Realty.js');
@@ -77,10 +80,14 @@ module.exports = (app) => {
     });
     
     // Modifier un bien (post)
-    app.post('/admin/realty/edit/:id', (req, res) => {
-        let Realty = require('../src/controller/Realty.js');
-        (new Realty()).process(req, res);
+    app.post('/admin/realty/edit/:id', 
+    require('express-fileupload')({createParentPath: true}),
+    require('../src/services/LcParserService.js'), 
+    (req, res) => {
+       let Realty = require('../src/controller/Realty.js');
+       (new Realty()).process(req, res);
     });
+
 
     // Supprimer un bien
     app.get('/admin/realty/delete/:id', (req, res) => {

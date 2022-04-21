@@ -37,6 +37,25 @@ module.exports = class Realty {
             realty : request.body.realty || {},
             agent : request.body.agent || {},
         };
+
+        let photos = [];
+        // Enregistrement des images
+        if(typeof request.files != 'undefined' && request.files != null) {
+            if(typeof request.files.photos[0] === 'undefined') {
+                request.files.photos = [request.files.photos];
+            }
+            const UploadImageProduct = new UploadImageProductService();
+            if(typeof request.files.photos != 'undefined' && request.files.photos.length > 0) {
+                
+                Object.values(request.files.photos).forEach(file => {
+                    photos.push(UploadImageProduct.moveFile(file, idProduct));
+                });
+            }                                
+        }
+        Promise.all(photos).then((values) => {
+            request.flash('success', `Le bien a été enregistré`);
+            response.redirect('/admin/realty');
+        });        
     
         let repo = new RepoRealty();
     

@@ -80,6 +80,12 @@ block content
             .mb-3
                 label Informations complémentaires
                 input(type="textarea" class="form-control" placeholder="Informations complémentaires" name="realty[info]" value=form.realty.info)
+            
+            .mb-3.lcUpload__block.lcUpload__input
+                input.lcUpload__file(type="file" name="photos" id="file" data-multiple-caption="{count} fichiers sélectionnés" multiple enctype="multipart/form-data")
+                label(for="file")
+                strong Choisissez le fichier
+                span.lcUpload__dragndrop  ou glissez le ici
 
         fieldset 
             legend Agent immobilier
