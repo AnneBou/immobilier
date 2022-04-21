@@ -1,17 +1,38 @@
 extends layout.pug 
 
-block content 
-        h1.h2
-            if realty.realty.type == 1 
-                span Maison #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
-            else if realty.realty.type == 2
-                span Appartement  #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
-            else if realty.realty.type == 3
-                span Terrain  #{realty.realty.area}m² - #{realty.address.city}
-            else if realty.realty.type == 4
-                span Parking - #{realty.address.city}
-            else if realty.realty.type == 5
-                span Local / Bureau - #{realty.address.city}
-            else 
-                span #{realty.address.city}
+block content
+    div.container.d-flex.flex-column
+        div.row
+            h1.col-8
+                if realty.realty.type == 1 
+                    span Maison #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+                else if realty.realty.type == 2
+                    span Appartement  #{realty.realty.area}m² - #{realty.realty.room} pièce(s) - #{realty.address.city}
+                else if realty.realty.type == 3
+                    span Terrain  #{realty.realty.area}m² - #{realty.address.city}
+                else if realty.realty.type == 4
+                    span Parking - #{realty.address.city}
+                else if realty.realty.type == 5
+                    span Local / Bureau - #{realty.address.city}
+                else 
+                    span #{realty.address.city}
+            div.col-1-offset-1
+                a.btn.btn-danger(href='mailto:'+realty.contact.email)
+                    i.fa.fa-envelope
+                    span  Ecrire à l'agence
+        div.row
+            div.col-6
+                h4 #{realty.realty.price} €
+                p
+                    i.fa-solid.fa-location-dot 
+                    span #{realty.address.zipcode} #{realty.address.city}
+                h3 Description 
+                p #{realty.realty.info}
+                h3 Notre agent 
+                ul 
+                    li #{realty.agent.firstname} #{realty.agent.lastname}
+                    li #{realty.agent.phone}
+            div.col-6
+                img(src='/images/home-icon.png' width="auto" height="450" class="d-inline-block align-top" alt='Pas de photo')
+
                     

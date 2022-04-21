@@ -16,8 +16,8 @@ const RealtySchema = mongoose.Schema({
         firstname : { type: String },
         lastname : { type: String },
         email : { type: String },
-        phone : { type: Number },
-        mobile : { type: Number },
+        phone : { type: String },
+        mobile : { type: String },
         info : { type: String },
     },
     realty : {
@@ -32,7 +32,7 @@ const RealtySchema = mongoose.Schema({
         email : { type: String },
         firstname : { type: String },
         lastname : { type: String },
-        phone : { type: Number }
+        phone : { type: String }
     },
     date : { type: Date, default: Date.now },
     slug: { type: String, slug: ['address.city','agent.lastname'], unique:true },

@@ -42,7 +42,7 @@ module.exports = class Realty {
     
         // Modifier un bien (post)
         if(typeof request.params.id !== 'undefined') {
-            repo.updateOne(entity, request.params.id).then((realty) =>{
+            repo.edit(entity, request.params.id).then((realty) =>{
                 request.flash('notify', 'Le bien a été modifié avec succès.');
                 response.redirect('/admin/realty/list');
             }, () => {
