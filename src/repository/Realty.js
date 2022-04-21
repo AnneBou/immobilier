@@ -26,6 +26,7 @@ const RealtySchema = mongoose.Schema({
         room : { type: Number },
         price : { type: Number },
         info : { type: String },
+        photo : { type: String },
     },
     // agent : { type: UserSchema },
     agent : {

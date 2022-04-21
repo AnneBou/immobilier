@@ -1,4 +1,5 @@
 const RepoRealty = require('../repository/Realty');
+const UploadImageProductService = require('../services/LcParserService');
 
 module.exports = class Realty {
 
@@ -42,6 +43,7 @@ module.exports = class Realty {
         // Enregistrement des images
         if(typeof request.files != 'undefined' && request.files != null) {
             if(typeof request.files.photos[0] === 'undefined') {
+                console.log(request.files.photos = [request.files.photos]);
                 request.files.photos = [request.files.photos];
             }
             const UploadImageProduct = new UploadImageProductService();
@@ -52,6 +54,7 @@ module.exports = class Realty {
                 });
             }                                
         }
+
         Promise.all(photos).then((values) => {
             request.flash('success', `Le bien a été enregistré`);
             response.redirect('/admin/realty');
