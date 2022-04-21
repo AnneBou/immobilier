@@ -1,5 +1,6 @@
+const { saveBufferToFile } = require('express-fileupload/lib/utilities');
 const RepoRealty = require('../repository/Realty');
-const UploadImageProductService = require('../services/LcParserService');
+const UploadImageProductService = require('../services/UploadImageProduct.js');
 
 module.exports = class Realty {
 
@@ -15,7 +16,6 @@ module.exports = class Realty {
         if(typeof request.params.id !== 'undefined') {
             let repo = new RepoRealty();
             repo.findById(request.params.id).then((realty) => {
-                console.log(realty);
                 response.render('admin/realty/form', {form : realty });
             }, () => {
                 request.flash('error',`Le bien n'a pas été trouvé`);
@@ -38,54 +38,49 @@ module.exports = class Realty {
             realty : request.body.realty || {},
             agent : request.body.agent || {},
         };
-
-        let photos = [];
-        // Enregistrement des images
-        if(typeof request.files != 'undefined' && request.files != null) {
-            if(typeof request.files.photos[0] === 'undefined') {
-                console.log(request.files.photos = [request.files.photos]);
-                request.files.photos = [request.files.photos];
-            }
-            const UploadImageProduct = new UploadImageProductService();
-            if(typeof request.files.photos != 'undefined' && request.files.photos.length > 0) {
-                
-                Object.values(request.files.photos).forEach(file => {
-                    photos.push(UploadImageProduct.moveFile(file, idProduct));
-                });
-            }                                
-        }
-
-        Promise.all(photos).then((values) => {
-            request.flash('success', `Le bien a été enregistré`);
-            response.redirect('/admin/realty');
-        });        
     
         let repo = new RepoRealty();
-    
+        let save;
         // Modifier un bien (post)
         if(typeof request.params.id !== 'undefined') {
-            repo.edit(entity, request.params.id).then((realty) =>{
-                request.flash('notify', 'Le bien a été modifié avec succès.');
-                response.redirect('/admin/realty/list');
-            }, () => {
-                request.flash('error',`Le bien n'a pas été trouvé`);
-                response.redirect('/admin/realty/list'); 
-            });
-        
+            save = repo.edit(entity, request.params.id);        
         // Ajouter un bien (post)
         } else {
-            repo.add(entity).then((user) => {
-                // resolve
-                request.flash('notify', 'Le bien a été ajouté avec succès.');
-                response.redirect('/admin/realty/list');
-                // reject
-            }, (err) => {
-                response.render('admin/realty/form', { 
-                    error : `L'enregistrement en base de données a échoué`, 
-                    form : entity 
-                }); 
-            });   
+            save = repo.add(entity);   
         }
+
+
+        save.then((realty) =>{
+            if(typeof request.params.id !== 'undefined') {
+                request.flash('notify', 'Le bien a été modifié avec succès.');
+            }
+            else {
+                request.flash('notify', 'Le bien a été ajouté avec succès.');
+            }
+
+            let photos = [];
+            // Enregistrement des images
+            if(typeof request.files != 'undefined' && request.files != null) {
+                if(typeof request.files.photos[0] === 'undefined') {
+                    request.files.photos = [request.files.photos];
+                }
+                const UploadImageProduct = new UploadImageProductService();
+                if(typeof request.files.photos != 'undefined' && request.files.photos.length > 0) {
+                    
+                    Object.values(request.files.photos).forEach(file => {
+                        photos.push(UploadImageProduct.moveFile(file, realty.id));
+                    });
+                }                                
+            }
+    
+            Promise.all(photos).then((values) => {
+                request.flash('success', `Le bien a été enregistré`);
+                response.redirect('/admin/realty/list');
+            });
+        }, () => {
+            request.flash('error',`Une erreur est survenue`);
+            response.redirect('/admin/realty/list'); 
+        })
     }
 
     // Liste des biens
