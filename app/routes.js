@@ -102,37 +102,40 @@ module.exports = (app) => {
     // Ajouter un utilisateur (get)
     app.get('/admin/user/add', (req, res) => {
         let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+        (new User()).printForm(req, res);
     });
 
     // Ajouter un utilisateur (post)
-    app.post('/admin/user/add', (req, res) => {
-        let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+    app.post('/admin/user/add', 
+    require('express-fileupload')({createParentPath: true}),
+    require('../src/services/LcParserService.js'), 
+    (req, res) => {
+       let User = require('../src/controller/User.js');
+       (new User()).process(req, res);
     });
 
     // Afficher la liste des utilisateurs
     app.get('/admin/user', (req, res) => {
         let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+        (new User()).print(req, res);
     });
 
     // Modifier un utilisateur (get)
     app.get('/admin/user/edit', (req, res) => {
         let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+        (new User()).printForm(req, res);
     });
 
     // Modifier un utilisateur (post)
     app.post('/admin/user/edit', (req, res) => {
         let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+        (new User()).process(req, res);
     });
 
     // Supprimer un utilisateur
     app.get('/admin/user/delete', (req, res) => {
         let User = require('../src/controller/User.js');
-        (new User()).printUser(req, res);
+        (new User()).delete(req, res);
     });
 
 };

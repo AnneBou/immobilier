@@ -19,14 +19,13 @@ block content
                         tr 
                             th.bs-checkbox 
                                 input(name="btSelectAll" type="checkbox")
-                            th Vendeur 
-                            th Adresse
-                            th Description  
+                            th Email 
                             th(style="width:1%;")  
                             th(style="width:1%;")  
                     tbody 
                         each realty, key in realties
                             tr 
+                                td #{user.email}
                                 td.bs-checkbox 
                                 //- Bouton de modification    
                                 td

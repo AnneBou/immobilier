@@ -7,6 +7,7 @@ const UserSchema = mongoose.Schema({
     firstname: { type: String/*, match: /^[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž-]+$/i*/ },
     lastname: { type: String/*, match: /^[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž-]+$/i*/ },
     phone: { type: String/*, match: /^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/*/ },
+    roles: { type: Array },
     date: { type: Date, default: Date.now }
 }, { versionKey: false });
  
