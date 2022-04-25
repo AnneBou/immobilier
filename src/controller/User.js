@@ -23,47 +23,46 @@ module.exports = class User {
         } 
 
         // Remplir un formulaire vide (ajouter)
-    //     else {
-    //         response.render('admin/user/form', {form: {}});
-    //     }
-    // }
+        else {
+            response.render('admin/user/form', {form: {}});
+        }
+    }
     
-    // // Ajouter un bien (post)
-    // process(request, response) {
-    //     let entity = {
-    //         // On récupère les données de l'objet ou un tableau si c'est vide
-    //         email : request.body.email || {},
-    //         password : request.body.password || {},
-    //         civility : request.body.civility || {},
-    //         firstname: request.body.firstname || {},
-    //         lastname: request.body.lastname || {},
-    //         phone: request.body.phone || {},
-    //         roles: request.body.roles || {},
-    //     };
+    // Ajouter un bien (post)
+    process(request, response) {
+        let entity = {
+            // On récupère les données de l'objet ou une chaîne de caractères si c'est vide
+            email : request.body.email || '',
+            password : request.body.password || '',
+            civility : request.body.civility || '',
+            firstname: request.body.firstname || '',
+            lastname: request.body.lastname || '',
+            phone: request.body.phone || ''
+        };
     
-    //     let repo = new RepoUser();
-    //     let save;
-    //     // Modifier un bien (post)
-    //     if(typeof request.params.id !== 'undefined') {
-    //         save = repo.edit(entity, request.params.id);        
-    //     // Ajouter un bien (post)
-    //     } else {
-    //         save = repo.add(entity);   
-    //     }
+        let repo = new RepoUser();
+        let save;
+        // Modifier un bien (post)
+        if(typeof request.params.id !== 'undefined') {
+            save = repo.edit(entity, request.params.id);        
+        // Ajouter un bien (post)
+        } else {
+            save = repo.add(entity);   
+        }
 
 
-    //     save.then((user) =>{
-    //         if(typeof request.params.id !== 'undefined') {
-    //             request.flash('notify', 'L\'utilisateur a été modifié avec succès.');
-    //         }
-    //         else {
-    //             request.flash('notify', 'L\'utilisateur a été ajouté avec succès.');
-    //         }
-    //     }, () => {
-    //         request.flash('error',`Une erreur est survenue`);
-    //         response.redirect('/admin/user'); 
-    //     })
-    // }
+        save.then((user) =>{
+            if(typeof request.params.id !== 'undefined') {
+                request.flash('notify', 'L\'utilisateur a été modifié avec succès.');
+            }
+            else {
+                request.flash('notify', 'L\'utilisateur a été ajouté avec succès.');
+            }
+        }, () => {
+            request.flash('error',`Une erreur est survenue`);
+            response.redirect('/admin/user'); 
+        })
+    }
 
     // Liste des biens
     print(request, response) {
