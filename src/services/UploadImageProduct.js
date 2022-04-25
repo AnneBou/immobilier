@@ -7,4 +7,11 @@ module.exports = class UploadImageProduct {
             file.mv(uploadPath, (err) => resolve(true));
         });
     }
+    getPictures(id_product) {
+        // boucle dans le répertoire et retourne la liste de toutes les images
+        if(fs.direxistsSync) {
+            const filenames = fs.readdirSync(process.env.DIR_IMG_PRODUCT+id_product);
+        }
+        return filenames;
+    }
 }
