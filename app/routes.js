@@ -9,7 +9,7 @@ module.exports = (app) => {
     });
 
     // Détails d'un bien
-    app.get('/detail/:id', (req, res) => {
+    app.get('/detail/:slug', (req, res) => {
         let Home = require('../src/controller/Home.js');
         (new Home()).printRealty(req, res);
     });
@@ -52,18 +52,14 @@ module.exports = (app) => {
         (new Dashboard()).print(req, res);
     }); 
 
+    //////////// Biens /////////////
+
     // Ajouter un bien (get)
     app.get('/admin/realty/add', (req, res) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).printForm(req, res);
     });
     
-    // Liste des biens
-    app.get('/admin/realty/list', (req, res) => {
-        let Realty = require('../src/controller/Realty.js');
-        (new Realty()).print(req, res);
-    });
-
     // Ajouter un bien (post)
     app.post('/admin/realty/add', 
     require('express-fileupload')({createParentPath: true}),
@@ -71,6 +67,12 @@ module.exports = (app) => {
     (req, res) => {
        let Realty = require('../src/controller/Realty.js');
        (new Realty()).process(req, res);
+    });
+
+    // Liste des biens
+    app.get('/admin/realty/list', (req, res) => {
+        let Realty = require('../src/controller/Realty.js');
+        (new Realty()).print(req, res);
     });
 
     // Modifier un bien (get)
@@ -94,4 +96,43 @@ module.exports = (app) => {
         let Realty = require('../src/controller/Realty.js');
         (new Realty()).delete(req, res);
     });
+
+    //////////// Utilisateurs /////////////
+
+    // Ajouter un utilisateur (get)
+    app.get('/admin/user/add', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
+    // Ajouter un utilisateur (post)
+    app.post('/admin/user/add', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
+    // Afficher la liste des utilisateurs
+    app.get('/admin/user', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
+    // Modifier un utilisateur (get)
+    app.get('/admin/user/edit', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
+    // Modifier un utilisateur (post)
+    app.post('/admin/user/edit', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
+    // Supprimer un utilisateur
+    app.get('/admin/user/delete', (req, res) => {
+        let User = require('../src/controller/User.js');
+        (new User()).printUser(req, res);
+    });
+
 };

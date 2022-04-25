@@ -1,0 +1,39 @@
+extends ../layout.pug
+block breadcrumb  
+    li
+        a(href='#')
+            em.fa.fa-home &nbsp;
+    li(class='active') Liste des utilisateurs
+        
+block content
+    .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+        h1.h2 Liste des utilisateurs
+        .btn-toolbar.mb-2.mb-md-0
+            a.btn.btn-small.btn-primary(href="/admin/user/add") Ajouter un utilisateur
+ 
+    .row
+        .col-md-12
+            .panel.panel-container
+                table.table.table-hover
+                    thead 
+                        tr 
+                            th.bs-checkbox 
+                                input(name="btSelectAll" type="checkbox")
+                            th Vendeur 
+                            th Adresse
+                            th Description  
+                            th(style="width:1%;")  
+                            th(style="width:1%;")  
+                    tbody 
+                        each realty, key in realties
+                            tr 
+                                td.bs-checkbox 
+                                //- Bouton de modification    
+                                td
+                                    a.btn.btn-danger(href='/admin/user/edit/'+realty._id)
+                                        i.fa.fa-pen
+
+                                //- Bouton de suppression
+                                td
+                                    a.btn.btn-danger(href='/admin/user/delete/'+realty._id) 
+                                        i.fa.fa-trash
