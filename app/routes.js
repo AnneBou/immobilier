@@ -121,19 +121,19 @@ module.exports = (app) => {
     });
 
     // Modifier un utilisateur (get)
-    app.get('/admin/user/edit', (req, res) => {
+    app.get('/admin/user/edit/:id', (req, res) => {
         let User = require('../src/controller/User.js');
         (new User()).printForm(req, res);
     });
 
     // Modifier un utilisateur (post)
-    app.post('/admin/user/edit', (req, res) => {
+    app.post('/admin/user/edit/:id', (req, res) => {
         let User = require('../src/controller/User.js');
         (new User()).process(req, res);
     });
 
     // Supprimer un utilisateur
-    app.get('/admin/user/delete', (req, res) => {
+    app.get('/admin/user/delete/:id', (req, res) => {
         let User = require('../src/controller/User.js');
         (new User()).delete(req, res);
     });

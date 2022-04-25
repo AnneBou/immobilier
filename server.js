@@ -55,6 +55,23 @@ app.use(sassMiddleware({
     indentedSyntax: false, // true Compiles files with the .sass extension
     outputStyle: 'compressed'
 }));
+
+//--------------------------------------------------------------------
+//      Simulation de connexion
+//--------------------------------------------------------------------
+if (process.env.APP_ENV === 'dev') {
+        app.use((req, res, next) => {
+            req.session.user = {
+                email: 'j.doe@yopmail.com',
+                civility: '1',
+                firstname: 'John',
+                lastname: 'Doe',
+                phone: '0656545859'
+            };
+            next();
+        });
+    }
+
 //--------------------------------------------------------------------
 //      Mise en place du répertoire static
 //--------------------------------------------------------------------

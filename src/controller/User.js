@@ -15,7 +15,7 @@ module.exports = class User {
         if(typeof request.params.id !== 'undefined') {
             let repo = new RepoUser();
             repo.findById(request.params.id).then((user) => {
-                response.render('admin/user:form', {form : user });
+                response.render('admin/user/form', {form : user });
             }, () => {
                 request.flash('error',`L\'utilisateur n'a pas été trouvé`);
                 response.redirect('/admin/user');
@@ -28,7 +28,7 @@ module.exports = class User {
         }
     }
     
-    // Ajouter un bien (post)
+    // Ajouter un utilisateur (post)
     process(request, response) {
         let entity = {
             // On récupère les données de l'objet ou une chaîne de caractères si c'est vide
@@ -42,10 +42,10 @@ module.exports = class User {
     
         let repo = new RepoUser();
         let save;
-        // Modifier un bien (post)
+        // Modifier un utilisateur (post)
         if(typeof request.params.id !== 'undefined') {
             save = repo.edit(entity, request.params.id);        
-        // Ajouter un bien (post)
+        // Ajouter un utilisateur (post)
         } else {
             save = repo.add(entity);   
         }
@@ -64,12 +64,12 @@ module.exports = class User {
         })
     }
 
-    // Liste des biens
+    // Liste des utilisateurs
     print(request, response) {
         if(typeof request.session.user !== 'undefined') {
             let repo = new RepoUser();
             repo.find().then((users) => {
-                response.render('admin/user', {users});
+                response.render('admin/user/list', {users});
             });
         } else {
             request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
@@ -77,7 +77,7 @@ module.exports = class User {
         }
     }
 
-    // Supprimer un bien
+    // Supprimer un utilisateur
     delete(request, response) {
         if(typeof request.session === 'undefined' || typeof request.session.user === 'undefined') {
             request.flash('error', `Vous devez être connecté pour accéder à l'administration.`);

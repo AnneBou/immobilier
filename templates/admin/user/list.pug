@@ -1,7 +1,7 @@
 extends ../layout.pug
 block breadcrumb  
     li
-        a(href='#')
+        a(href='/')
             em.fa.fa-home &nbsp;
     li(class='active') Liste des utilisateurs
         
@@ -23,16 +23,16 @@ block content
                             th(style="width:1%;")  
                             th(style="width:1%;")  
                     tbody 
-                        each realty, key in realties
+                        each user, key in users
                             tr 
                                 td #{user.email}
                                 td.bs-checkbox 
                                 //- Bouton de modification    
                                 td
-                                    a.btn.btn-danger(href='/admin/user/edit/'+realty._id)
+                                    a.btn.btn-danger(href='/admin/user/edit/'+user._id)
                                         i.fa.fa-pen
 
                                 //- Bouton de suppression
                                 td
-                                    a.btn.btn-danger(href='/admin/user/delete/'+realty._id) 
+                                    a.btn.btn-danger(href='/admin/user/delete/'+user._id) 
                                         i.fa.fa-trash

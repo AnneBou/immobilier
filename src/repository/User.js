@@ -15,12 +15,53 @@ module.exports = class User { // Accès à la collection User
     constructor() {
         this.db = mongoose.model('User', UserSchema); 
     }
-
+    
+    // Liste des utilisateurs
+    find(search = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.find(search, function (err, user) {
+                if (err) reject(err);
+                resolve(user);
+            });
+        });
+    }
+    
+    // Pour la suppression et la modification
+    findById(id) {
+        return new Promise((resolve, reject) => {
+            this.db.findById(id, function (err, user) {
+                if (err || user === null) reject();
+                resolve(user);
+            });
+        });
+    }
+    
+    // Ajouter un utilisateur
     add(userEntity) {
         return new Promise((resolve, reject) => {
             this.db.create(userEntity, function (err, user) {
                 if (err) reject(err);
                 resolve(user);
+            });
+        });
+    }
+
+    // Modifier un utilisateur
+    edit(userEntity, id) {
+        return new Promise((resolve, reject) => {
+            this.db.findOneAndUpdate({_id:id},userEntity, function (err, user) {
+                if (err) reject(err);
+                resolve(user);
+            });
+        });
+    }
+
+    // Supprimer un utilisateur
+    delete(filter = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.deleteOne(filter, function (err) {
+                if (err) reject(err);
+                resolve();
             });
         });
     }
