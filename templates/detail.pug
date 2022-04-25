@@ -33,4 +33,22 @@ block content
                     li #{realty.agent.firstname} #{realty.agent.lastname}
                     li #{realty.agent.phone}
             div.col-6
-                img(src=`../public/images/realties/`+realty._id`/home1_jpg` width="auto" height="450" class="d-inline-block align-top" alt='Pas de photo')
+            .card.realty-card
+                if realty.pictures && realty.pictures.length > 0
+                    #carouselExampleControls.carousel.slide(data-bs-ride="carousel")
+                        .carousel-inner
+                            for picture, key in realty.pictures
+                                if key === 0
+                                    .carousel-item.active
+                                        img.d-block.w-100(src=picture)
+                                else
+                                    .carousel-item
+                                        img.d-block.w-100(src=picture)
+                        a.carousel-control-prev(href="#carouselExampleControls", role="button", data-bs-slide="prev")
+                            span.carousel-control-prev-icon(aria-hidden="true")
+                            span.sr-only Previous
+                        a.carousel-control-next(href="#carouselExampleControls", role="button", data-bs-slide="next")
+                            span.carousel-control-next-icon(aria-hidden="true")
+                            span.sr-only Next
+                else
+                    img.card-img-top(src="/images/no-photo.jpg", alt="Pas de photo pour l'instant")

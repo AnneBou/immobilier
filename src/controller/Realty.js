@@ -1,6 +1,6 @@
 const { saveBufferToFile } = require('express-fileupload/lib/utilities');
 const RepoRealty = require('../repository/Realty');
-const UploadImageProductService = require('../services/UploadImageProduct.js');
+const UploadImageProductService = require('../services/UploadImageProductService.js');
 
 module.exports = class Realty {
 

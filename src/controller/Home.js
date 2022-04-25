@@ -1,32 +1,30 @@
 const RepoRealty = require('../repository/Realty');
+const UploadImageProductService = require('../services/UploadImageProductService');
 
 module.exports = class Home {
-    print(req, res) {
-        res.render('home');  
-    }
-};
 
-module.exports = class Realty {
-    // Liste des biens
-    print(request, response) {
+    print(req, res) {
         let repo = new RepoRealty();
         repo.find().then((realties) => {
-            response.render('list', {realties});
+            const UploadImageProduct = new UploadImageProductService();
+            realties = realties.map((realty) => {
+                realty.pictures = UploadImageProduct.getPictures(realty.id);
+                return realty;
+            });
+            res.render('list', {realties});
         });
     }
 
-    // Afficher les détails d'un bien
-    printRealty(request, response) {
-        if(typeof request.params.id !== 'undefined') {
+    printRealty(req, res) {
+        if(typeof req.params.slug != 'undefined'  && req.params.slug != '') {
             let repo = new RepoRealty();
-            repo.findById(request.params.id).then((realty) => {
-                console.log(realty);
-                response.render('detail', {realty});
-            }, () => {
-                request.flash('error',`Le bien n'a pas été trouvé`);
-                response.redirect('/');
-            });   
-        } 
+            repo.find({slug : req.params.slug}).then((realty) => {
+                res.render('detail', { realty : realty[0] });
+            },() => {
+                req.flash('error', 'Une erreur est survenue.');
+                res.redirect('/');
+            });
+        }
     }
 
-}
+};

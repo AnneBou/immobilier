@@ -7,7 +7,11 @@ block content
         each realty, key in realties
             .col-sm-4.mt-4
                 .card(style='width: 18rem;')
-                    img.card-img-top(src='../public/images/realties/'+realty._id alt='Pas de photo')
+                    img.card-img-top(src="/images/home-icon.jpg", alt="Pas de photo pour l'instant")
+                    if realty.pictures && realty.pictures[0]
+                        img.card-img-top(src=realty.pictures[0], alt="Pas de photo pour l'instant")
+                    else
+                        img.card-img-top(src="/images/home-icon.jpg", alt="Pas de photo pour l'instant")
                     .card-body
                         h5.card-title
                                 if realty.realty.type == 1 
